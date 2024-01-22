@@ -1,23 +1,23 @@
-//using environment variables
-require('dotenv').config();
+require('dotenv').config()
+
 const express = require('express')
+const workoutRoutes = require('./routes/workouts')
 
-//express app
-const app = express();
+// express app
+const app = express()
 
-//Middleware
-app.use((req, res, next) =>
-{
-    console.log(req.path,req.method);
-    next();
+// middleware
+app.use(express.json())
+
+app.use((req, res, next) => {
+    console.log(req.path, req.method)
+    next()
 })
 
-//routes
-app.get('/',(req,res)=>{
-    res.json({message:"hello world"});
-})
+// routes
+app.use('/api/workouts', workoutRoutes)
 
-//listening on port 4000
-app.listen(process.env.PORT,() => {
-    console.log('listening on port',process.env.PORT);
+// listen for requests
+app.listen(process.env.PORT, () => {
+    console.log('listening on port', process.env.PORT)
 })
